@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+<AddIn Type="DBApplication">
+    <Name>DA4R_ReplaceFamily</Name>
+    <FullClassName>DA4R_ReplaceFamily.App</FullClassName>
+    <Text>Revit for Design Automation</Text>
+    <Description>Revit for Design Automation</Description>
+    <VisibilityMode>AlwaysVisible</VisibilityMode>
+    <Assembly>.\DA4R_ReplaceFamily.dll</Assembly>
+    <AddInId>e3cfc521-43f4-4d47-b139-e2341b5ac3f6</AddInId>
+    <VendorId>ADSK</VendorId>
+    <VendorDescription>Autodesk, Inc, www.autodesk.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>

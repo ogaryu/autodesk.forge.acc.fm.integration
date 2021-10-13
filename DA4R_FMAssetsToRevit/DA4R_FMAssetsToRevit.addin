@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="DBApplication">
+    <Name>DA4R_FMAssetsToRevit</Name>
+    <FullClassName>DA4R_FMAssetsToRevit.App</FullClassName>
+    <Text>Revit for Design Automation</Text>
+    <Description>Revit for Design Automation</Description>
+    <VisibilityMode>AlwaysVisible</VisibilityMode>
+    <Assembly>.\DA4R_FMAssetsToRevit.dll</Assembly>
+    <AddInId>c561a22e-a017-4765-b9b9-552e8e46ea54</AddInId>
+    <VendorId>ADSK</VendorId>
+    <VendorDescription>Autodesk, Inc, www.autodesk.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>

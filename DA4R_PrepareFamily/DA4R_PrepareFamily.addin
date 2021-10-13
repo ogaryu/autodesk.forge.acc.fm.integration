@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Command DA4R_PrepareFamily</Text>
+    <Description>Some description for DA4R_PrepareFamily</Description>
+    <Assembly>DA4R_PrepareFamily.dll</Assembly>
+    <FullClassName>DA4R_PrepareFamily.Command</FullClassName>
+    <ClientId>2c3188c2-df1d-4b48-8bd1-768eb655b9e1</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Application DA4R_PrepareFamily</Name>
+    <Assembly>DA4R_PrepareFamily.dll</Assembly>
+    <FullClassName>DA4R_PrepareFamily.App</FullClassName>
+    <ClientId>ceeb3a2e-6e6a-480f-979f-734d2e890b24</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>

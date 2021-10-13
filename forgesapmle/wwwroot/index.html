@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Autodesk Forge を FM システムと連携する</title>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="https://github.com/Autodesk-Forge/learn.forge.viewhubmodels/raw/master/img/favicon.ico">
+    <!-- Common packages: jQuery, Bootstrap, jsTree -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/jstree.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/themes/default/style.min.css" />
+    <!-- .NET SignalR -->
+    <script src="//unpkg.com/@aspnet/signalr@1.1.0/dist/browser/signalr.min.js"></script>
+    <!-- Autodesk Forge Viewer files -->
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.min.css" type="text/css">
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
+    <!-- this project files -->
+    <link href="css/main.css" rel="stylesheet" />
+    <script src="js/ConnectionManager.js"></script>
+    <script src="js/ForgeTree.js"></script>
+    <script src="js/ForgeViewer.js"></script>
+    <script src="js/FacilityManagementIntegrationExtension.js"></script>
+    <script src="js/AssetMaintenanceExtension.js"></script>
+    <script src="js/ReplaceFamily.js"></script>
+    <script src="js/PrepareFamily.js"></script>
+    <script src="js/MultipleModelUtil.js"></script>
+    <!-- drawer.css -->
+    <link rel="stylesheet" href="css/drawer.css">
+    <!-- iScroll -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.2.0/iscroll.min.js"></script>
+    <!-- drawer.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.2.2/js/drawer.min.js"></script>
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css">
+</head>
+<body class="drawer drawer--left">
+    <header role="banner" class="global-header navbar navbar-default navbar-fixed-top">
+        <button type="button" class="drawer-toggle drawer-hamburger">
+            <span class="sr-only">toggle navigation</span>
+            <span class="drawer-hamburger-icon"></span>
+        </button>
+        <div class="autodesk-forge-nav container-fluid">
+            <ul class="nav navbar-nav left">
+                <li>
+                    <a href="http://developer.autodesk.com" target="_blank">
+                        <img alt="Autodesk Forge" src="//developer.static.autodesk.com/images/logo_forge-2-line.png" height="20">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="drawer-nav" role="navigation">
+            <div class="panel panel-default fill">
+                <div class="panel-heading" data-toggle="tooltip" style="padding: 0px;">
+                    <span id="userInfo"></span>
+                    <span id="refreshHubs" class="glyphicon glyphicon-refresh" style="cursor: pointer; display: none" title="Refresh list of files"></span>
+                    <span id="signOut" class="glyphicon glyphicon-log-out" style="margin-top:5px;cursor: pointer; float: right; display: none" title="Sign out"> </span>
+                </div>
+                <div id="user-hubs">
+                    <div style="padding-top: 100px; text-align: center;">
+                        <button class="btn btn-lg btn-default" id="autodeskSigninButton">
+                            <img src="https://github.com/Autodesk-Forge/bim360appstore-data.management-nodejs-transfer.storage/raw/master/www/img/autodesk_text.png"
+                                 height="20"> Sign in
+                        </button>
+                        <br />
+                        <br />
+                        <br /> You may also need to provision your<br /> BIM 360 Docs account for this app.<br />
+                        <a href="https://forge.autodesk.com/blog/bim-360-docs-provisioning-forge-apps">Learn more</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main role="main">
+        <div class="container-fluid fill">
+            <div class="row" id="replace-family-form-row">
+                <form id="replace-family-menu" class="form-inline">
+                    <div class="form-group">
+                        <label class="control-label select-family-label" for="InputText">ファミリタイプ選択：</label>
+                        <input type="text" class="form-control selected-family" id="selected-family-type" disabled>
+                        <input type="hidden" id="selected-family-type-item-url" name="selectedFamilyTypeItemUrl">
+                        <input type="hidden" id="selected-family-type-folder-url" name="selectedFamilyTypeFolderUrl">
+                        <input type="hidden" id="selected-family-type-item-name" name="selectedFamilyTypeItemName">
+                        <input type="hidden" id="selected-family-type-instance-guid" name="selectedFamilyTypeInstanceGuid">
+                        <input type="hidden" id="selected-family-type-name" name="selectedFamilyTypeName">
+                        <input type="hidden" id="selected-family-type-category" name="selectedFamilyTypeCategory">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label select-family-label" for="InputText">ファミリインスタンス選択：</label>
+                        <input type="text" class="form-control selected-family" id="selected-family-instance" disabled>
+                        <input type="hidden" id="selected-family-instance-item-url" name="selectedFamilyInstanceItemUrl">
+                        <input type="hidden" id="selected-family-instance-folder-url" name="selectedFamilyInstanceFolderUrl">
+                        <input type="hidden" id="selected-family-instance-item-name" name="selectedFamilyInstanceItemName">
+                        <input type="hidden" id="selected-family-instance-guid" name="selectedFamilyInstanceGuid">
+                        <input type="hidden" id="selected-family-instance-type-name" name="selectedFamilyInstanceTypeName">
+                        <input type="hidden" id="selected-family-instance-category" name="selectedFamilyInstanceCategory">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="replace-family-button" class="btn btn-default"  data-loading-text="交換中...">交換を実行</button>
+                    </div>
+                </form>
+            </div>
+                
+            <div class="row fill">
+                <div id="first-viewer-column" class="fill">
+                    <div class="row fill"><div id="first-viewer"></div></div>
+                </div>
+                <div id="second-viewer-column" class="col-sm-12 fill">
+                    <div class="row fill"><div id="second-viewer"></div></div>
+                </div>
+            </div>
+        </div>
+</main>
+    <template id="fm-integration-panel-content">
+        <div class="docking-panel-close"></div>
+        <div class="docking-panel-footer">
+            <div class="docking-panel-footer-resizer"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="upsert-fmdb-title"><h5>FM DB アセットを追加・更新</h5></div>
+                <button type="button" class="btn btn-success btn-upsert-fmdb" data-loading-text="更新中...">実行   <span class="glyphicon glyphicon-cloud" aria-hidden="true" style="font-size: 21px; top: 7px"></span></button>
+            </div>
+            <div class="row">
+                <div class="import-fmdb-title"><h5>FM DB アセット情報を読み込み</h5></div>
+                <button type="button" class="btn btn-info btn-import-fmdb" data-loading-text="読み込み中...">実行   <span class="glyphicon glyphicon-cloud" aria-hidden="true" style="font-size: 21px; top: 7px"></span></button>
+            </div>
+        </div>
+    </template>
+    <template id="create-maintenance-report-panel-content">
+        <div class="docking-panel-close"></div>
+        <div class="docking-panel-footer">
+            <div class="docking-panel-footer-resizer"></div>
+        </div>
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <label for="asset_name">アセット:</label>
+                    <input type="text" id="asset_name" name="asset_name" class="form-control" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="report_title">タイトル:</label>
+                    <input type="text" id="report_title" name="report_title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="report_description">詳細:</label>
+                    <textarea id="report_description" name="report_description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="report_priority">優先度:</label>
+                    <select id="report_priority" name="report_priority" class="form-control">
+                        <option value="high">高
+                        <option value="middle">中
+                        <option value="low">低
+                    </select>
+                </div>
+                <input type="button" class="btn btn-info btn-create-maintenance-report" value="作成">
+            </form>
+        </div>
+    </template>
+</body>
+<iframe id="hiddenFrame" style="visibility: hidden; display: none" />
+</html>

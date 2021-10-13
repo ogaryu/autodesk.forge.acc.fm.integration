@@ -1,0 +1,149 @@
+﻿html, body{
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  padding-top: 60px; /* space for the top nav bar */
+  margin-right: 30px;
+}
+
+.autodesk-forge-nav {
+    margin-left: 10px;
+}
+
+.global-header {
+    z-index: 999 !important;
+}
+
+.vakata-context {
+    z-index: 999 !important;
+}
+
+.forge-viewer-column {
+    padding-left: 30px;
+}
+
+#user-hubs {
+    overflow: auto;
+    width: 400px;
+    height: calc(100vh - 150px);
+}
+
+#replace-family-menu {
+    height: 60px;
+}
+
+#first-viewer {
+    width: 100%;
+    height: 580px;
+    margin-left:15px;
+}
+
+#second-viewer {
+    height: 580px;
+}
+
+.facility-management-integration-panel-style {
+    background-image: url(https://github.com/encharm/Font-Awesome-SVG-PNG/raw/master/white/png/24/exchange.png);
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.create-maintenance-report-panel-style {
+    background-image: url(https://github.com/encharm/Font-Awesome-SVG-PNG/raw/master/white/png/24/pencil.png);
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.load-maintenance-records-panel-style {
+    background-image: url(https://github.com/encharm/Font-Awesome-SVG-PNG/raw/master/white/png/24/exclamation-triangle.png);
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#fm-db-integration-panel, #create-maintenance-report-panel {
+    background-color: rgba(34,34,34,.9);
+}
+
+#create-maintenance-report-panel .container {
+    width: 280px;
+}
+
+.upsert-fmdb-title, .import-fmdb-title {
+    padding: 0px 10px;
+}
+
+button.btn-upsert-fmdb, button.btn-import-fmdb {
+    margin-left: 10px;
+    width: 100px;
+    height: 30px;
+    padding: 0px 12px 4px 12px;
+}
+
+.form-group-sm .form-control {
+    height: 22px !important;
+}
+
+#fm-db-integration-panel .docking-panel-title {
+    font-size: 18px;
+}
+
+#fm-db-integration-panel div.select-element-input-group {
+    width: 280px;
+}
+
+.select-element-uniqueid {
+    height: 34px;
+    direction: ltr;
+    margin: 0;
+    padding: 7px 12px 8px 40px;
+    font-size: 12px;
+    width: 100%;
+    outline: none;
+    position: relative;
+    box-sizing: border-box;
+    line-height: normal;
+    z-index: 1;
+}
+
+.jstree li.jstree-open > a.jstree-anchor > i.jstree-checkbox,
+.jstree li.jstree-closed > a.jstree-anchor > i.jstree-checkbox {
+    display: none;
+}
+
+#create-maintenance-report-panel #asset_name, #create-maintenance-report-panel #report_title, #create-maintenance-report-panel #report_description, #create-maintenance-report-panel #report_priority {
+    width: 240px;
+}
+
+#replace-family-menu .selected-family {
+    width: 400px;
+}
+
+#replace-family-menu .select-family-label {
+    margin-left: 40px;
+}
+
+#replace-family-button {
+    margin-left: 40px;
+}
+
+label.markup {
+    position: absolute;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+label.update {
+    z-index: 1;
+}
+
+.iconWarning {
+    font-size: 30px;
+    color: yellow;
+    -webkit-text-stroke: 1px red;
+    text-stroke: 1px red;
+}
